@@ -3,12 +3,11 @@ use std::fs::File;
 use std::io::{BufRead, BufReader, Write};
 
 /*
-Author Gaurav Sablok,
-Email: codeprog@icloud.com
+Gaurav Sablok,
+codeprog@icloud.com
 */
 
-#[tokio::main]
-pub async fn alignmerge(path: &str, mergeheader: &str) -> Result<String, Box<dyn Error>> {
+pub fn alignmerge(path: &str, mergeheader: &str) -> Result<String, Box<dyn Error>> {
     let alignmentopen = File::open(path).expect("file not found");
 
     let alignmentread = BufReader::new(alignmentopen);

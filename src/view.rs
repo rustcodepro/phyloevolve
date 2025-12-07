@@ -1,14 +1,14 @@
 use colored::Colorize;
+use std::error::Error;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
 
 /*
-Author Gaurav Sablok,
-Email: codeprog@icloud.com
+Gaurav Sablok,
+codeprog@icloud.com
 */
 
-#[tokio::main]
-pub async fn alignment_embedded_common(path: &str) {
+pub fn alignment_embedded_common(path: &str) -> Result<String, Box<dyn Error>> {
     #[derive(Debug, Clone, PartialEq, PartialOrd)]
     struct Embedded {
         header: String,
@@ -84,4 +84,5 @@ pub async fn alignment_embedded_common(path: &str) {
         }
         println!();
     }
+    Ok("The alignment has been printed".to_string())
 }

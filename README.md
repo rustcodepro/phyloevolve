@@ -1,6 +1,8 @@
 # phyloevolve
 
- - rust based alignment kit for genome, metagenome, pangenome. It gives you all the alignments functionalities and also gives you colour coded alignment for each alignment and sub-alignment region. check the alignment view and alignment-clipview.
+ - rust based alignment kit for genome, metagenome, pangenome. 
+- It gives you all the alignments functionalities and also gives you colour coded alignment for each alignment 
+     and sub-alignment region. check the alignment view and alignment-clipview.
 
  ```
  cargo build

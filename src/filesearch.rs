@@ -3,12 +3,11 @@ use std::fs::File;
 use std::io::{BufRead, BufReader};
 
 /*
-Author Gaurav Sablok,
-Email: codeprog@icloud.com
+Gaurav Sablok,
+codeprog@icloud.com
 */
 
-#[tokio::main]
-pub async fn read(path: &str) -> Result<(Vec<String>, Vec<String>), Box<dyn Error>> {
+pub fn read(path: &str) -> Result<(Vec<String>, Vec<String>), Box<dyn Error>> {
     let fileopen = File::open(path).expect("file not found");
     let fileread = BufReader::new(fileopen);
     let mut header: Vec<String> = Vec::new();

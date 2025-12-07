@@ -57,120 +57,250 @@ fn main() {
         Commands::Alignmerge {
             alignment,
             mergeheader,
+            thread,
         } => {
-            let command = alignmerge(alignment, mergeheader).unwrap();
-            println!("The merged alignment have been written: {:?}", command);
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(thread.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command = alignmerge(alignment, mergeheader).unwrap();
+                println!("The merged alignment have been written: {:?}", command);
+            });
         }
         Commands::Alignmergeinterval {
             alignment,
             start,
             end,
             header,
+            thread,
         } => {
-            let command = alignmergeall(alignment, start, end, header).unwrap();
-            println!(
-                "The values after applying the score filter are:{:?}",
-                command
-            );
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(thread.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command = alignmergeall(alignment, start, end, header).unwrap();
+                println!(
+                    "The values after applying the score filter are:{:?}",
+                    command
+                );
+            })
         }
-        Commands::SameAlignment { alignment } => {
-            let command = dealignment(alignment).unwrap();
-            println!("The file has been written:{:?}", command);
+        Commands::SameAlignment { alignment, thread } => {
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(thread.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command = dealignment(alignment).unwrap();
+                println!("The file has been written:{:?}", command);
+            });
         }
-        Commands::Alignmentstats { alignment } => {
-            let command = alignmentstats(alignment).unwrap();
-            println!("The alignment stats for the given file is: {:?}", command);
+        Commands::Alignmentstats { alignment, thread } => {
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(thread.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command = alignmentstats(alignment).unwrap();
+                println!("The alignment stats for the given file is: {:?}", command);
+            });
         }
-        Commands::FilterSite { alignment, base } => {
-            let command = filtersiteremoval(alignment, base).unwrap();
-            println!(
-                "The results after the filtering have been written:{:?}",
-                command
-            );
+        Commands::FilterSite {
+            alignment,
+            base,
+            thread,
+        } => {
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(thread.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command = filtersiteremoval(alignment, base).unwrap();
+                println!(
+                    "The results after the filtering have been written:{:?}",
+                    command
+                );
+            });
         }
-        Commands::FilterAll { alignment } => {
-            let command = filtersiteall(alignment).unwrap();
-            println!("The filtered bases have been written, {:?}", command);
+        Commands::FilterAll { alignment, thread } => {
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(thread.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command = filtersiteall(alignment).unwrap();
+                println!("The filtered bases have been written, {:?}", command);
+            });
         }
-        Commands::FilterBlock { alignment, block } => {
-            let command = filterblockalignment(alignment, block).unwrap();
-            println!("The alignment block has been filtered, {:?}", command);
+        Commands::FilterBlock {
+            alignment,
+            block,
+            thread,
+        } => {
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(thread.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command = filterblockalignment(alignment, block).unwrap();
+                println!("The alignment block has been filtered, {:?}", command);
+            });
         }
-        Commands::AlignmentView { alignment } => {
-            let command = alignment_embedded_common(alignment);
-            println!(
-                "The printed alignment for the give alignment is as follows: {:?}",
-                command
-            );
+        Commands::AlignmentView { alignment, thread } => {
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(thread.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command = alignment_embedded_common(alignment);
+                println!(
+                    "The printed alignment for the give alignment is as follows: {:?}",
+                    command
+                );
+            });
         }
         Commands::AlignmentClipview {
             alignment,
             start,
             end,
+            thread,
         } => {
-            let command = splicedalignment(alignment, start.clone(), end.clone());
-            println!(
-                "The printed alignment for the specific region are:{:?}",
-                command
-            );
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(thread.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command = splicedalignment(alignment, *start, *end);
+                println!(
+                    "The printed alignment for the specific region are:{:?}",
+                    command
+                );
+            });
         }
         Commands::Sitereplace {
             alignment,
             letter,
             replacement,
+            thread,
         } => {
-            let command = sitereplacenuc(alignment, letter, replacement).unwrap();
-            println!("The site have been repalced:{:?}", command)
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(thread.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command = sitereplacenuc(alignment, letter, replacement).unwrap();
+                println!("The site have been repalced:{:?}", command)
+            });
         }
-        Commands::ProteinStat { alignment } => {
-            let command = proteomestats(alignment).unwrap();
-            println!("The stats have been written for the file: {:?}", command);
+        Commands::ProteinStat { alignment, thread } => {
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(thread.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command = proteomestats(alignment).unwrap();
+                println!("The stats have been written for the file: {:?}", command);
+            });
         }
-        Commands::Indelreplace { alignment, indel } => {
-            let command = substitute(alignment, indel).unwrap();
-            println!("The indel replacement have been written: {:?}", command);
+        Commands::Indelreplace {
+            alignment,
+            indel,
+            thread,
+        } => {
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(thread.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command = substitute(alignment, indel).unwrap();
+                println!("The indel replacement have been written: {:?}", command);
+            });
         }
-        Commands::MotifSearch { alignment, motif } => {
-            let command = motifsearchall(alignment, motif).unwrap();
-            println!("The search motifs has been listed:{:?}", command);
+        Commands::MotifSearch {
+            alignment,
+            motif,
+            thread,
+        } => {
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(thread.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command = motifsearchall(alignment, motif).unwrap();
+                println!("The search motifs has been listed:{:?}", command);
+            });
         }
         Commands::UpDownStream {
             alignment,
             focal,
             upstream,
             downstream,
+            thread,
         } => {
-            let command = upstreamdownstream(alignment, focal, upstream, downstream).unwrap();
-            println!(
-                "The upstream downstream regions from the alignment have been written {:?}",
-                command
-            );
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(thread.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command = upstreamdownstream(alignment, focal, upstream, downstream).unwrap();
+                println!(
+                    "The upstream downstream regions from the alignment have been written {:?}",
+                    command
+                );
+            });
         }
         Commands::SiteAlignment {
             alignment,
             header,
             base,
+            thread,
         } => {
-            let command = sitespecific(alignment, header, base).unwrap();
-            println!(
-                "The specific site information from all those alignments have been written:{:?}",
-                command
-            );
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(thread.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command = sitespecific(alignment, header, base).unwrap();
+                println!(
+             "The specific site information from all those alignments have been written:{:?}",
+             command
+         );
+            });
         }
-        Commands::Plotter { alignment } => {
-            let command = plotter(alignment).unwrap();
-            println!("The alignment plots have been written:{:?}", command);
+        Commands::Plotter { alignment, thread } => {
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(thread.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command = plotter(alignment).unwrap();
+                println!("The alignment plots have been written:{:?}", command);
+            });
         }
-        Commands::Nucleotidecolour { alignment } => {
-            let command = readcodecolor(alignment).unwrap();
-            println!("The colour coded alignment are as follows:{:?}", command);
+        Commands::Nucleotidecolour { alignment, thread } => {
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(thread.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command = readcodecolor(alignment).unwrap();
+                println!("The colour coded alignment are as follows:{:?}", command);
+            });
         }
-        Commands::Proteomecolour { alignment } => {
-            let command = proteomecolor(alignment).unwrap();
-            println!(
-                "The color coded protein alignment protein table: {:?}",
-                command
-            );
+        Commands::Proteomecolour { alignment, thread } => {
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(thread.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let command = proteomecolor(alignment).unwrap();
+                println!(
+                    "The color coded protein alignment protein table: {:?}",
+                    command
+                );
+            })
         }
     }
 }

@@ -4,12 +4,11 @@ use std::fs::File;
 use std::io::Write;
 
 /*
-Author Gaurav Sablok,
-Email: codeprog@icloud.com
+Gaurav Sablok,
+codeprog@icloud.com
 */
 
-#[tokio::main]
-pub async fn upstreamdownstream(
+pub fn upstreamdownstream(
     path: &str,
     focal: &str,
     upstream: &str,

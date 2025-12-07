@@ -4,12 +4,11 @@ use std::fs::File;
 use std::io::{BufRead, BufReader, Write};
 
 /*
-Author Gaurav Sablok,
-Email: codeprog@icloud.com
+Gaurav Sablok,
+codeprog@icloud.com
 */
 
-#[tokio::main]
-pub async fn alignmergeall(
+pub fn alignmergeall(
     path: &str,
     start: &str,
     end: &str,

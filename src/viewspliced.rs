@@ -1,14 +1,14 @@
 use colored::Colorize;
+use std::error::Error;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
 
 /*
-Author Gaurav Sablok,
-Email: codeprog@icloud.com
+Gaurav Sablok,
+codeprog@icloud.com
 */
 
-#[tokio::main]
-pub async fn splicedalignment(path: &str, start: usize, end: usize) {
+pub fn splicedalignment(path: &str, start: usize, end: usize) -> Result<String, Box<dyn Error>> {
     #[derive(Debug, Clone, PartialEq, PartialOrd)]
     struct Embedded {
         header: String,
@@ -67,4 +67,5 @@ pub async fn splicedalignment(path: &str, start: usize, end: usize) {
         }
         println!();
     }
+    Ok("The spliced alignment has been written".to_string())
 }

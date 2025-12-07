@@ -3,12 +3,11 @@ use std::fs::File;
 use std::io::{BufRead, BufReader, Write};
 
 /*
-Author Gaurav Sablok,
-Email: codeprog@icloud.com
+Gaurav Sablok,
+codeprog@icloud.com
 */
 
-#[tokio::main]
-pub async fn substitute(path: &str, letter: &str) -> Result<String, Box<dyn Error>> {
+pub fn substitute(path: &str, letter: &str) -> Result<String, Box<dyn Error>> {
     let fileopen = File::open(path).expect("file not found");
     let fileread = BufReader::new(fileopen);
 

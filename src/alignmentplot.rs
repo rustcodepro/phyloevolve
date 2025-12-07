@@ -6,12 +6,11 @@ use std::fs::File;
 use std::io::Write;
 
 /*
-Author Gaurav Sablok,
-Email: codeprog@icloud.com
+Gaurav Sablok,
+codeprog@icloud.com
 */
 
-#[tokio::main]
-pub async fn plotter(path: &str) -> Result<String, Box<dyn Error>> {
+pub fn plotter(path: &str) -> Result<String, Box<dyn Error>> {
     let (header, sequence) = read(path).unwrap();
     let mut plotread: Vec<Plotter> = Vec::new();
     for i in 0..sequence.len() {

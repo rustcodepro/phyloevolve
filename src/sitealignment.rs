@@ -2,12 +2,11 @@ use crate::filesearch::read;
 use std::error::Error;
 
 /*
-Author Gaurav Sablok,
-Email: codeprog@icloud.com
+Gaurav Sablok,
+codeprog@icloud.com
 */
 
-#[tokio::main]
-pub async fn sitespecific(path: &str, head: &str, base: &str) -> Result<String, Box<dyn Error>> {
+pub fn sitespecific(path: &str, head: &str, base: &str) -> Result<String, Box<dyn Error>> {
     let (header, sequence) = read(path).unwrap();
     let mut information: Vec<Vec<usize>> = Vec::new();
     for i in 0..sequence.len() {

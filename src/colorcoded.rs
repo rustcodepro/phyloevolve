@@ -3,12 +3,11 @@ use colored::Colorize;
 use std::error::Error;
 
 /*
-Author Gaurav Sablok,
-Email: codeprog@icloud.com
+Gaurav Sablok,
+codeprog@icloud.com
 */
 
-#[tokio::main]
-pub async fn readcodecolor(path: &str) -> Result<String, Box<dyn Error>> {
+pub fn readcodecolor(path: &str) -> Result<String, Box<dyn Error>> {
     let (header, sequence) = read(path).unwrap();
 
     let mut vecsize: Vec<(String, usize, usize, usize, usize)> = Vec::new();
